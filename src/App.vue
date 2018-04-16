@@ -61,7 +61,6 @@
       </div>
     </div>
     <div class="ui container app body">
-      <!-- agent menu -->
       <div class="ui inverted agent menu">
         <div class="right padded menu">
           <a class="item active" data-tab="tab-agent-detail">
