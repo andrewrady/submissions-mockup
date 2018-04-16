@@ -60,16 +60,107 @@
         </a>
       </div>
     </div>
-    <router-view/>
+    <div class="ui container app body">
+      <!-- agent menu -->
+      <div class="ui inverted agent menu">
+        <div class="right padded menu">
+          <a class="item active" data-tab="tab-agent-detail">
+            Submissions
+          </a>
+          <a class="item" data-tab="tab-agent-contract">
+            Incoming Applications
+          </a>
+          <a class="item" data-tab="tab-agent-contract">
+            Export to Carrier
+          </a>
+        </div>
+      </div>
+
+      <div class="ui hidden divider"></div>
+
+      <div class="ui stackable grid">
+        <div class="eleven wide column">
+          <div class="ui hidden divider"></div>
+          <div class="ui hidden divider"></div>
+          <div class="ui hidden divider"></div>
+
+          <div id="submissions" class="ui bottom attached tab segment active" data-tab="tab-detail">
+
+            <div class="ui basic segment form">
+              <div class="right floated">
+                <i class="small circular yellow inverted list icon" @click="toggleShowForm"></i> New Entry &nbsp;
+              </div>
+            </div>
+            <div class="animation-container">
+              <transition name="slide-down">
+                <new-form v-show="showForm" @addClient="addClient"></new-form>
+              </transition>
+            </div>
+
+            <clients v-for="(client, index) in clients" :key="index" :client="client"></clients>
+
+            <div class="ui hidden divider"></div>
+          </div>
+        </div>
+
+        <notes></notes>
+
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script>
+import Notes from './components/Notes'
+import NewForm from './components/Form'
+import Clients from './components/Clients'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Notes,
+    NewForm,
+    Clients
+  },
+  data() {
+    return {
+      showForm: false,
+      clients: [
+        {
+          client: {
+            firstName: 'John',
+            lastName: 'Smith',
+          },
+          billingAddress: {
+            street: '1600 Pennsylvania Ave',
+            apt: null,
+            state: 'Washington',
+            county: 'DC'
+          },
+          billingInformation: {
+            cardType: 'Master Card',
+            cardNumber: '5555',
+            cvc: '555',
+            experationMonth: '08',
+            experationYear: '2099',
+          }
+        }
+      ]
+    }
+  },
+  methods: {
+    toggleShowForm() {
+      this.showForm = !this.showForm;
+    },
+    addClient(client) {
+      this.clients.push(client);
+      this.showForm = false;
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-@import "assets/scss/main.scss";
+@import 'assets/scss/main.scss';
 </style>

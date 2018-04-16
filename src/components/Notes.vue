@@ -48,7 +48,3 @@ export default {
   name: 'notes'
 }
 </script>
-
-<style>
-
-</style>
