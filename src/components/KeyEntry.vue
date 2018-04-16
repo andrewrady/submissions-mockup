@@ -9,49 +9,49 @@
     <div class="content top attached">
       <div class="description">
         <form class="ui form" @submit.prevent>
-          <div class="field" v-show="step == 1">
+          <div class="field" v-if="step == 1">
             <label>First Name</label>
-            <input type="text" v-model="form.client.firstName" autofocus @keydown="nextField">
+            <input type="text" v-model="form.client.firstName" rel="test" @keydown="nextField">
           </div>
-          <div class="field" v-show="step == 2">
+          <div class="field" v-if="step == 2">
             <label>Last Name</label>
-            <input type="text" v-model="form.client.lastName" autofocus @keydown="nextField">
+            <input type="text" v-model="form.client.lastName" rel="test" @keydown="nextField">
           </div>
 
-          <div class="field" v-show="step == 3">
+          <div class="field" v-if="step == 3">
             <label>Street Address</label>
             <input type="text" v-model="form.billingAddress.street" autofocus @keydown="nextField">
           </div>
-          <div class="field" v-show="step == 4">
+          <div class="field" v-if="step == 4">
             <label>Apt #</label>
             <input type="text" v-model="form.billingAddress.apt" @keydown="nextField">
           </div>
-          <div class="field" v-show="step == 5">
+          <div class="field" v-if="step == 5">
             <label>State</label>
             <input type="text" v-model="form.billingAddress.state" @keydown="nextField">
           </div>
-          <div class="field" v-show="step == 6">
+          <div class="field" v-if="step == 6">
             <label>County</label>
             <input type="text" v-model="form.billingAddress.county" @keydown="nextField">
           </div>
 
-          <div class="field" v-show="step == 7">
+          <div class="field" v-if="step == 7">
             <label>Card Type</label>
             <input type="text" v-model="form.billingInformation.cardType" @keydown="nextField">
           </div>
-          <div class="field" v-show="step == 8">
+          <div class="field" v-if="step == 8">
             <label>Card Number</label>
             <input type="text" v-model="form.billingInformation.cardNumber" @keydown="nextField">
           </div>
-          <div class="field" v-show="step == 9">
+          <div class="field" v-if="step == 9">
             <label>CVC</label>
             <input type="text" v-model="form.billingInformation.cvc" @keydown="nextField">
           </div>
-          <div class="field" v-show="step == 10">
+          <div class="field" v-if="step == 10">
             <label>Experation Month</label>
             <input type="text" v-model="form.billingInformation.experationMonth" @keydown="nextField">
           </div>
-          <div class="field" v-show="step == 11">
+          <div class="field" v-if="step == 11">
             <label>Experation Year</label>
             <input type="text" v-model="form.billingInformation.experationYear" @keydown="nextField">
           </div>
@@ -92,12 +92,15 @@ export default {
     increaseStep() {
       if (this.step < 12)
         this.step++
-        this.increasePrecentage();
+      this.increasePrecentage();
+      this.setFocus();
+
     },
     decreaseStep() {
       if (this.step >= 2)
         this.step--
-        this.decreasePrecentage()
+      this.decreasePrecentage()
+      this.setFocus();
     },
     nextField(e) {
       if (e.keyCode == 9)
@@ -110,8 +113,15 @@ export default {
     },
     decreasePrecentage() {
       let bar = document.getElementsByClassName('bar')[0];
-      this.precent = this.precent - 8.8;  
+      this.precent = this.precent - 8.8;
       bar.style.width = this.precent + '%';
+    },
+    setFocus() {
+      let test = document.getElementsByClassName('field')[0]
+      let inputs = test.querySelector('input')
+      this.$nextTick(() => {
+        inputs.focus();
+      })
     }
   }
 }
