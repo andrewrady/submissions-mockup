@@ -25,80 +25,49 @@
 
         <div id="submissions" class="ui bottom attached tab segment active" data-tab="tab-detail">
 
-          <!-- add contract -->
           <div class="ui basic segment form">
             <div class="right floated">
               <i class="small circular yellow inverted list icon" @click="toggleShowForm"></i> New Entry &nbsp;
             </div>
           </div>
-          <div v-if="showForm">
-            <new-form></new-form>
+          <div class="animation-container">
+            <transition name="slide-down">
+              <new-form v-show="showForm"></new-form>
+            </transition>
           </div>
 
           <div class="ui fluid styled accordion submission">
             <div class="ui title">
               <div class="ui equal width grid">
                 <div class="row">
-                  <div class="five wide column">
-                    <span>Aetna
-                      <!-- show if enrolled -->
-                      <i class="olive checkmark icon"></i>
-                    </span>
-                    Aetna Medicare Silver Plan
-                    <mark>(HMO)</mark>
+                  <div class="four wide column">
+                    John Smith
+                    <i class="olive checkmark icon"></i>
                   </div>
                   <div class="column">
-                    <span>Client</span>
-                    Jane Hammond
+                    <span>Address</span>
+                    1600 Pennsylvania Ave
                   </div>
                   <div class="two wide column">
-                    <span>Effective</span>
+                    <span>Date</span>
                     4/1/2018
                   </div>
                   <div class="column">
-                    <span>Status <i class="ui circular tiny empty label negative"></i></span>
-                    Submitted Missing Info
+                    <span>Status
+                      <i class="ui circular tiny empty label negative"></i>
+                    </span>
+                    Completed
                   </div>
                   <div class="column">
-                    <span>Validity <i class="ui circular tiny empty label negative"></i></span>
-                    Initial &amp; incomplete
+                    <span>Submiied by
+                      <i class="ui circular tiny empty label positive"></i>
+                    </span>
+                    Kevin H.
                   </div>
                   <div class="one wide middle aligned column">
                     <i class="small circular inverted yellow edit icon" @click="toggleForm()"></i>
                   </div>
                 </div>
-                <transition name="slide-down">
-                  <div v-show="showInfo" class="row highlight">
-                    <div class="five wide column">
-                      <span>Agent</span>
-                      <a href="#">Craig James Ritter</a>
-                    </div>
-                    <div class="column">
-                      <span>Processor</span>
-                      Tim Graham
-                    </div>
-                    <div class="column">
-                      <span>Source</span>
-                      Medicareful
-                    </div>
-                    <div class="column">
-                      <span>Signature</span>
-                      2/23/2018
-                    </div>
-                    <div class="column">
-                      <span>Keyed</span>
-                      2/23/2018
-                    </div>
-                    <div class="two wide column states">
-                      <div class="ui icon label pressed">
-                        PA
-                      </div>
-                    </div>
-                  </div>
-                </transition>
-                <transition name="slide-down">
-
-                </transition>
               </div>
             </div>
           </div>
@@ -112,14 +81,14 @@
     </div>
 
   </div>
-  
+
 </template>
 
 <script>
 import Notes from './Notes'
 import NewForm from './Form'
 export default {
-  name: 'HelloWorld',
+  name: 'submissions',
   components: {
     Notes,
     NewForm
@@ -141,7 +110,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 .submission {
   &.accordion .content {
@@ -152,12 +120,12 @@ export default {
   }
   .ui.vertical.segment {
     background: transparent;
-    transition: .2s;
+    transition: 0.2s;
     margin: 0 -1rem;
     overflow: visible;
     padding: 2rem 1rem 1rem;
     &:first-of-type {
-      margin-top: -.5rem;
+      margin-top: -0.5rem;
     }
   }
   .header.expanded {
@@ -183,5 +151,56 @@ export default {
   margin: 1rem -1rem;
   padding: 1rem;
   // @include rgba-background-color($color-menu-bkg, .7);
+}
+
+.animation-container {
+  overflow: hidden;
+}
+
+@keyframes SlideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(-85%);
+  }
+  50% {
+    transform: translateY(-55%);
+  }
+  75% {
+    transform: translateY(-25%);
+    opacity: 0.1;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes SlideClose {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  75% {
+    transform: translateY(-80%);
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.slide-down {
+  &-enter-active {
+    animation: SlideDown 0.2s;
+  }
+  &-leave-active {
+    animation: SlideClose 0.2s;
+  }
 }
 </style>
