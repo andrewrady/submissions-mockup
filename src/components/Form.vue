@@ -188,15 +188,9 @@ export default {
       this.keyEntryMode();
     },
     submit() {
-
+      this.$emit('addClient', this.form)
     }
   }
 }
 </script>
 
-<style lang="scss">
-.ui.modal {
-  display: inline;
-  top: 35%;
-}
-</style>

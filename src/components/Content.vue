@@ -32,87 +32,11 @@
           </div>
           <div class="animation-container">
             <transition name="slide-down">
-              <new-form v-show="showForm"></new-form>
+              <new-form v-show="showForm" @addClient="addClient"></new-form>
             </transition>
           </div>
 
-          <div class="ui fluid styled accordion submission">
-            <div class="ui title">
-              <div class="ui equal width grid">
-                <div class="row">
-                  <div class="four wide column">
-                    John Smith
-                    <i class="olive checkmark icon"></i>
-                  </div>
-                  <div class="two wide column">
-                    <span>Date</span>
-                    4/1/2018
-                  </div>
-                  <div class="column">
-                    <span>Status
-                      <i class="ui circular tiny empty label negative"></i>
-                    </span><br>
-                    Completed
-                  </div>
-                  <div class="column">
-                    <span>Submiied by
-                      <i class="ui circular tiny empty label positive"></i>
-                    </span><br>
-                    Kevin H.
-                  </div>
-                  <div class="one wide middle aligned column">
-                    <i class="small circular inverted yellow edit icon" @click="toggleContent()"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div  v-show="showContent" class="ui divider"></div>
-            <div class="animation-container">
-              <transition name="slide-down">
-                <div v-show="showContent" class="ui content">
-                  <div class="ui equal width grid">
-                    <div class="row">
-                      <div class="five wide column">
-                        <span>Address</span><br>
-                        1600 Pennsylvania Ave
-                      </div>
-                      <div class="column">
-                        <span>City</span><br>
-                        Washington
-                      </div>
-                      <div class="column">
-                        <span>State</span><br>
-                        DC
-                      </div>
-                      <div class="column">
-                        <span>zip</span><br>
-                        20500
-                      </div>
-                    </div>
-                    <div class="ui divider"></div>
-                    <div class="row">
-                      <div class="column">
-                        <span>Card Type</span><br>
-                        Master Card
-                      </div>
-                      <div class="column">
-                        <span>Card # (last 4)</span><br>
-                        4321
-                      </div>
-                      <div class="column">
-                        <span>Experation</span><br>
-                        23/2018
-                      </div>
-                      <div class="column">
-                        <span>CVC</span><br>
-                        555
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </transition>
-            </div>
-          </div>
+          <clients v-for="(client, index) in clients" :key="index" :client="client"></clients>
 
           <div class="ui hidden divider"></div>
         </div>
@@ -129,24 +53,47 @@
 <script>
 import Notes from './Notes'
 import NewForm from './Form'
+import Clients from './Clients'
 export default {
   name: 'submissions',
   components: {
     Notes,
-    NewForm
+    NewForm,
+    Clients
   },
   data() {
     return {
       showForm: false,
-      showContent: false,
+      clients: [
+        {
+          client: {
+            firstName: 'John',
+            lastName: 'Smith',
+          },
+          billingAddress: {
+            street: '1600 Pennsylvania Ave',
+            apt: null,
+            state: 'Washington',
+            county: 'DC'
+          },
+          billingInformation: {
+            cardType: 'Master Card',
+            cardNumber: '5555',
+            cvc: '555',
+            experationMonth: '08',
+            experationYear: '2099',
+          }
+        }
+      ]
     }
   },
   methods: {
-    toggleContent() {
-      this.showContent = !this.showContent;
-    },
     toggleShowForm() {
       this.showForm = !this.showForm;
+    },
+    addClient(client) {
+      this.clients.push(client);
+      this.showForm = false;
     }
   }
 }
@@ -154,6 +101,7 @@ export default {
 
 <style lang="scss">
 .submission {
+  margin: 1rem 0;
   .header {
     margin-top: 1rem;
   }
