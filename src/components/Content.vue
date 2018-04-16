@@ -44,10 +44,6 @@
                     John Smith
                     <i class="olive checkmark icon"></i>
                   </div>
-                  <div class="column">
-                    <span>Address</span>
-                    1600 Pennsylvania Ave
-                  </div>
                   <div class="two wide column">
                     <span>Date</span>
                     4/1/2018
@@ -55,20 +51,66 @@
                   <div class="column">
                     <span>Status
                       <i class="ui circular tiny empty label negative"></i>
-                    </span>
+                    </span><br>
                     Completed
                   </div>
                   <div class="column">
                     <span>Submiied by
                       <i class="ui circular tiny empty label positive"></i>
-                    </span>
+                    </span><br>
                     Kevin H.
                   </div>
                   <div class="one wide middle aligned column">
-                    <i class="small circular inverted yellow edit icon" @click="toggleForm()"></i>
+                    <i class="small circular inverted yellow edit icon" @click="toggleContent()"></i>
                   </div>
                 </div>
               </div>
+            </div>
+            <div  v-show="showContent" class="ui divider"></div>
+            <div class="animation-container">
+              <transition name="slide-down">
+                <div v-show="showContent" class="ui content">
+                  <div class="ui equal width grid">
+                    <div class="row">
+                      <div class="five wide column">
+                        <span>Address</span><br>
+                        1600 Pennsylvania Ave
+                      </div>
+                      <div class="column">
+                        <span>City</span><br>
+                        Washington
+                      </div>
+                      <div class="column">
+                        <span>State</span><br>
+                        DC
+                      </div>
+                      <div class="column">
+                        <span>zip</span><br>
+                        20500
+                      </div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="row">
+                      <div class="column">
+                        <span>Card Type</span><br>
+                        Master Card
+                      </div>
+                      <div class="column">
+                        <span>Card # (last 4)</span><br>
+                        4321
+                      </div>
+                      <div class="column">
+                        <span>Experation</span><br>
+                        23/2018
+                      </div>
+                      <div class="column">
+                        <span>CVC</span><br>
+                        555
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </transition>
             </div>
           </div>
 
@@ -96,12 +138,12 @@ export default {
   data() {
     return {
       showForm: false,
-      showInfo: false,
+      showContent: false,
     }
   },
   methods: {
-    toggleShowInfo() {
-      this.showInfo = !this.showInfo;
+    toggleContent() {
+      this.showContent = !this.showContent;
     },
     toggleShowForm() {
       this.showForm = !this.showForm;
@@ -112,9 +154,6 @@ export default {
 
 <style lang="scss">
 .submission {
-  &.accordion .content {
-    display: block !important; // <-- fighting semantic
-  }
   .header {
     margin-top: 1rem;
   }
@@ -141,7 +180,6 @@ export default {
     background: aliceblue;
   }
 }
-
 .history-container {
   // for .well
   overflow-x: visible;
@@ -150,7 +188,6 @@ export default {
 .well {
   margin: 1rem -1rem;
   padding: 1rem;
-  // @include rgba-background-color($color-menu-bkg, .7);
 }
 
 .animation-container {

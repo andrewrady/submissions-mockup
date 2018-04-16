@@ -118,9 +118,9 @@ export default {
     },
     setFocus() {
       let test = document.getElementsByClassName('field')[0]
-      let inputs = test.querySelector('input')
+      let input = test.querySelector('input')
       this.$nextTick(() => {
-        inputs.focus();
+        input.focus();
       })
     }
   }
